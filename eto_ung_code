@@ -233,7 +233,7 @@ namespace G2_BSIT1D_FINALS
             {
                 ListViewItem selectedItem = lstAvailableSongs.SelectedItems[0];
 
-                // kukuhanin nya anong nakasulat dun sa your playlist
+                // kukuhanin nya anong naka-highlight dun sa available songs
                 string title = selectedItem.SubItems[0].Text;
                 string artist = selectedItem.SubItems[1].Text;
                 string genre = selectedItem.SubItems[2].Text;
