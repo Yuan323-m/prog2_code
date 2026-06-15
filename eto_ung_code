@@ -1,0 +1,261 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace G2_BSIT1D_FINALS
+{
+    public partial class frmMusic : Form
+    {
+        public frmMusic()
+        {
+            InitializeComponent();
+        }
+        //It could be used to keep track of how many playlists currently exist in your application or within a specific object.
+        private int playlistCounter = 1;
+        //Method ano ilalagay sa anek anek
+        private void AddSong(List<ListViewItem> list, string title, string artist, string genre, string time, string activity)
+        {
+            ListViewItem song = new ListViewItem(title);
+            song.SubItems.Add(artist);
+            song.SubItems.Add(genre);
+            song.SubItems.Add(time);
+            song.SubItems.Add(activity); 
+
+            list.Add(song);
+        }
+        private void btnGeneratePlaylist_Click(object sender, EventArgs e)
+        {
+            //para ma clear everytime mag generate ng playlist hindi ma stack ung mga songs
+            lstAvailableSongs.Items.Clear();
+
+            string selectedMood = "";
+
+            if (rbtnHappy.Checked)
+                selectedMood = "Happy";
+            else if (rbtnSad.Checked)
+                selectedMood = "Sad";
+            else if (rbtnRelaxed.Checked)
+                selectedMood = "Relaxed";
+            else if (rbtnEnergetic.Checked)
+                selectedMood = "Energetic";
+            else if (rbtnRomantic.Checked)
+                selectedMood = "Romantic";
+
+            //sa activity naman to 
+            string selectedActivity = cmbActivity.SelectedItem != null ? cmbActivity.SelectedItem.ToString() : "";
+            //nag if ako para hindi mag error or lumitaw na error pag ni start ko sya. 
+            //but ung nasa loob walang laman para hindi pangit kapag nag start walang lilitaw na messagebox
+            if (string.IsNullOrEmpty(selectedActivity))
+            {
+            }
+            //tong list view variable laman nya ung mga songs
+            List<ListViewItem> rawMoodSongs = new List<ListViewItem>();
+            // HAPPY
+            if (selectedMood == "Happy")
+            {
+                AddSong(rawMoodSongs, "Sunflower", "Post Malone", "Pop", "2:38", "Working / Studying");
+                AddSong(rawMoodSongs, "Counting Stars", "OneRepublic", "Rock", "4:17", "Gaming");
+                AddSong(rawMoodSongs, "Budapest", "George Ezra", "Acoustic", "3:21", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Rather Be", "Clean Bandit", "Pop", "3:47", "Cooking / Dining");
+                AddSong(rawMoodSongs, "Payphone", "Maroon 5", "Pop", "3:51", "Working / Studying");
+                AddSong(rawMoodSongs, "Sunday Morning", "Maroon 5", "R&B", "4:02", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Hey Look Ma, I Made It", "Panic! At The Disco", "Rock", "2:49", "Gaming");
+                AddSong(rawMoodSongs, "Happy", "Pharrell Williams", "Pop", "3:53", "Cooking / Dining");
+                AddSong(rawMoodSongs, "Hey Ya!", "Outkast", "Hip Hop", "3:55", "Gaming");
+                AddSong(rawMoodSongs, "Treasure", "Bruno Mars", "R&B", "2:58", "Cooking / Dining");
+                AddSong(rawMoodSongs, "Can't Stop the Feeling!", "Justin Timberlake", "Pop", "3:56", "Gaming");
+                AddSong(rawMoodSongs, "Walking On Sunshine", "Katrina and the Waves", "Pop", "3:57", "Cooking / Dining");
+                AddSong(rawMoodSongs, "Good Life", "OneRepublic", "Pop", "4:13", "Chilling / Relaxing");
+            }
+            // ROMANTIC
+            else if (selectedMood == "Romantic")
+            {
+                AddSong(rawMoodSongs, "Perfect", "Ed Sheeran", "Pop", "4:23", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Photograph", "Ed Sheeran", "Pop", "4:19", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Die With A Smile", "Bruno Mars & Lady Gaga", "R&B", "4:11", "Cooking / Dining");
+                AddSong(rawMoodSongs, "All of Me", "John Legend", "R&B", "4:29", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Thinking Out Loud", "Ed Sheeran", "Pop", "4:41", "Cooking / Dining");
+                AddSong(rawMoodSongs, "Adore You", "Harry Styles", "Rock", "3:27", "Gaming");
+                AddSong(rawMoodSongs, "Love On Top", "Beyonce", "R&B", "4:27", "Cooking / Dining");
+                AddSong(rawMoodSongs, "At Last", "Etta James", "R&B", "3:01", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Just the Way You Are", "Bruno Mars", "Pop", "3:40", "Working / Studying");
+                AddSong(rawMoodSongs, "My Girl", "The Temptations", "R&B", "2:56", "Chilling / Relaxing");
+            }
+
+            // SAD
+            else if (selectedMood == "Sad")
+            {
+                AddSong(rawMoodSongs, "Someone Like You", "Adele", "Pop", "4:45", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Let Her Go", "Passenger", "Acoustic", "4:12", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Stay With Me", "Sam Smith", "R&B", "2:52", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Fix You", "Coldplay", "Rock", "4:55", "Working / Studying");
+                AddSong(rawMoodSongs, "Lucid Dreams", "Juice WRLD", "Hip Hop", "4:00", "Gaming");
+                AddSong(rawMoodSongs, "When I Was Your Man", "Bruno Mars", "Pop", "3:33", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "The Scientist", "Coldplay", "Rock", "5:09", "Working / Studying");
+                AddSong(rawMoodSongs, "Yesterday", "The Beatles", "Acoustic", "2:05", "Working / Studying");
+                AddSong(rawMoodSongs, "Skinny Love", "Bon Iver", "Acoustic", "3:58", "Working / Studying");
+                AddSong(rawMoodSongs, "See You Again", "Wiz Khalifa ft. Charlie Puth", "Hip Hop", "3:49", "Gaming");
+            }
+
+            // ENERGETIC
+            else if (selectedMood == "Energetic")
+            {
+                AddSong(rawMoodSongs, "Blinding Lights", "The Weeknd", "R&B", "3:20", "Workout/Gaming"); // Added workout logic
+                AddSong(rawMoodSongs, "Lose Yourself", "Eminem", "Hip Hop", "5:26", "Gaming");
+                AddSong(rawMoodSongs, "Believer", "Imagine Dragons", "Rock", "3:24", "Gaming");
+                AddSong(rawMoodSongs, "Radioactive", "Imagine Dragons", "Rock", "3:06", "Gaming");
+                AddSong(rawMoodSongs, "Uptown Funk", "Bruno Mars", "Pop", "4:29", "Cooking / Dining");
+                AddSong(rawMoodSongs, "Sugar", "Maroon 5", "Pop", "3:55", "Cooking / Dining");
+                AddSong(rawMoodSongs, "Eye of the Tiger", "Survivor", "Rock", "4:05", "Working / Studying");
+                AddSong(rawMoodSongs, "Can't Hold Us", "Macklemore & Ryan Lewis", "Hip Hop", "4:18", "Gaming");
+                AddSong(rawMoodSongs, "Thunder", "Imagine Dragons", "Rock", "3:07", "Gaming");
+            }
+
+            // RELAXED
+            else
+            {
+                AddSong(rawMoodSongs, "Banana Pancakes", "Jack Johnson", "Acoustic", "3:11", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Redbone", "Childish Gambino", "R&B", "5:26", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Yellow", "Coldplay", "Rock", "4:29", "Working / Studying");
+                AddSong(rawMoodSongs, "Ocean Eyes", "Billie Eilish", "Pop", "3:20", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Landslide", "Fleetwood Mac", "Acoustic", "3:19", "Working / Studying");
+                AddSong(rawMoodSongs, "Snooze", "SZA", "R&B", "3:21", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Better Together", "Jack Johnson", "Acoustic", "3:27", "Chilling / Relaxing");
+                AddSong(rawMoodSongs, "Put Your Records On", "Corinne Bailey Rae", "Pop", "3:35", "Cooking / Dining");
+                AddSong(rawMoodSongs, "Dreams", "Fleetwood Mac", "Rock", "4:17", "Working / Studying");
+            }
+            // GENRE FILTER
+            List<ListViewItem> matchedSongs = new List<ListViewItem>();
+
+            foreach (ListViewItem song in rawMoodSongs)
+            {
+                string genre = song.SubItems[2].Text;
+                if ((chkPop.Checked && genre == "Pop") ||
+                (chkRock.Checked && genre == "Rock") ||
+                (chkRB.Checked && genre == "R&B") ||
+                (chkHipHop.Checked && genre == "Hip Hop") ||
+                (chkAcoustic.Checked && genre == "Acoustic"))
+                {
+                    matchedSongs.Add(song);
+                }
+            }
+            foreach (ListViewItem song in rawMoodSongs)
+            {
+                string genre = song.SubItems[2].Text;
+                string songActivity = song.SubItems[4].Text; // 4th SubItem stores the activity
+
+                bool isGenreSelected = (chkPop.Checked && genre == "Pop") ||
+                                       (chkRock.Checked && genre == "Rock") ||
+                                       (chkRB.Checked && genre == "R&B") ||
+                                       (chkHipHop.Checked && genre == "Hip Hop") ||
+                                       (chkAcoustic.Checked && genre == "Acoustic");
+
+                // Must match both the Genre AND the chosen Activity
+                if (isGenreSelected && (songActivity == selectedActivity))
+                {
+                    matchedSongs.Add(song);
+                }
+            }
+
+            // DISPLAY
+            foreach (ListViewItem song in matchedSongs)
+            {
+                lstAvailableSongs.Items.Add((ListViewItem)song.Clone());
+            }
+        }
+        private void frmMusic_Load(object sender, EventArgs e)
+        {
+            // Para ka start ung activity and sort naka lagay "Choose Here"
+            if (cmbActivity.Items.Count > 0) cmbActivity.SelectedIndex = -1;
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (lstYourPlaylist.SelectedItems.Count > 0)
+            {
+                // ma remove ung ni click mo
+                lstYourPlaylist.SelectedItems[0].Remove();
+
+                // 2. Fix the track numbers (#) so they are sequential again
+                // i represents the index of each item in the list (starts at 0)
+                for (int i = 0; i < lstYourPlaylist.Items.Count; i++)
+                {
+                    // Update the first column text to match its new position (1-based index)
+                    lstYourPlaylist.Items[i].Text = (i + 1).ToString();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a track inside your playlist to delete!", "No Song Highlighted", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnSavePlaylist_Click(object sender, EventArgs e)
+        {
+            // incase walang laman ung yourplaylist tapos sinubukan i save lilitaw to
+            if (lstYourPlaylist.Items.Count == 0)
+            {
+                MessageBox.Show("Your playlist is empty!");
+                return;
+            }
+
+            // para may nakalagay na Playlist 1(or etc. kung ilan man yan)
+            lbMySavedPlaylist.Items.Add(string.Format("--- Playlist {0} ---", playlistCounter));
+
+            // 
+            foreach (ListViewItem item in lstYourPlaylist.Items)
+            {
+                string number = item.Text;
+                string title = item.SubItems[1].Text;
+                string artist = item.SubItems[2].Text;
+
+                // ung number, title, artist lilitaw sya 
+                lbMySavedPlaylist.Items.Add(string.Format("{0} - {1} - {2}", number, title, artist));
+            }
+
+            // para ma clear ung laman nung listview
+            lstYourPlaylist.Items.Clear();
+
+            // eto para hindi lang playlist 1 lagi nakalagay depende kung ilan dadag-dag nalang sya
+            playlistCounter++;
+
+            MessageBox.Show("Playlist saved successfully!");
+        }
+        private void btnAddToPlaylist_Click(object sender, EventArgs e)
+        {
+            if (lstAvailableSongs.SelectedItems.Count > 0)
+            {
+                ListViewItem selectedItem = lstAvailableSongs.SelectedItems[0];
+
+                // kukuhanin nya anong nakasulat dun sa your playlist
+                string title = selectedItem.SubItems[0].Text;
+                string artist = selectedItem.SubItems[1].Text;
+                string genre = selectedItem.SubItems[2].Text;
+                string time = selectedItem.SubItems[3].Text;
+
+                // gagawa ng new row para sa playlist
+                ListViewItem newItem = new ListViewItem((lstYourPlaylist.Items.Count + 1).ToString());
+
+                // ilalagay nya sa listbox ng tama ung order per column
+                newItem.SubItems.Add(title);
+                newItem.SubItems.Add(artist);
+                newItem.SubItems.Add(genre);
+                newItem.SubItems.Add(time);
+
+                // ung ni click mong song sa available song mapupunta sya sa YourPlaylist pag ni click ung "add to Playlist"
+                lstYourPlaylist.Items.Add(newItem);
+
+                // lilitaw sa listbox na RECENT UPDATES ung time, title, genre, duration(time nung song)
+                string logEntry = "[" + DateTime.Now.ToString("HH:mm:ss") + "] Added '" + title + "', " + genre + ", " + time;
+                lstRecentActions.Items.Insert(0, logEntry);
+            }
+        }
+    }
+}
+  
