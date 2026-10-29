@@ -7,6 +7,10 @@ class Expense {
   final double amount;
   final String category;
   Expense(this.title, this.amount, this.category);
+
+  Expense copyWith({String? title, double? amount, String? category}) =>
+      Expense(title ?? this.title, amount ?? this.amount,
+          category ?? this.category);
 }
 
 const categoryIcons = {
@@ -44,8 +48,19 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
   }
 
   void _open(Expense e) async {
-    if (await Navigator.push<bool>(context, MaterialPageRoute(builder: (_) => ExpenseDetailScreen(expense: e))) == true) {
-      setState(() { _expenses.remove(e); _history.add(e); });
+    final index = _expenses.indexOf(e);
+    if (await Navigator.push<bool>(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ExpenseDetailScreen(
+              expense: e,
+              onChanged: (updatedExpense) =>
+                  setState(() => _expenses[index] = updatedExpense),
+            ),
+          ),
+        ) ==
+        true) {
+      setState(() => _history.add(_expenses.removeAt(index)));
     }
   }
 
@@ -98,7 +113,21 @@ class _ExpenseListScreenState extends State<ExpenseListScreen> {
                             leading: CircleAvatar(backgroundColor: c.shade100, child: Icon(categoryIcons[e.category], color: c.shade700)),
                             title: Text(e.title, style: const TextStyle(fontWeight: FontWeight.w600)),
                             subtitle: Text(e.category),
-                            trailing: Text('₱${e.amount.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text('₱${e.amount.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                                IconButton(
+                                  tooltip: 'Restore expense',
+                                  icon: const Icon(Icons.restore),
+                                  onPressed: () => setState(() {
+                                    _expenses.add(e);
+                                    _history.removeAt(i);
+                                    setSheetState(() {});
+                                  }),
+                                ),
+                              ],
+                            ),
                           );
                         },
                       ),
